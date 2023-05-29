@@ -1,0 +1,19 @@
+.page-auth {
+  .row-login {
+    min-height: 70vh;
+  }
+
+  .section-shop-auth {
+    h2 {
+      font-weight: 200;
+      font-size: 28px;
+      margin-top: 0;
+      color: #0c0d36;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      background: #f3f3f3;
+    }
+  }
+}
