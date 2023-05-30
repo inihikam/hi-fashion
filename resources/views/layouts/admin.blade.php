@@ -46,7 +46,7 @@
                         {{ request()->is('admin/category*') ? 'active' : '' }}">
                         Categories
                     </a>
-                    <a href="dashboard-transaction.html" class="list-group-item list-group-item-action">
+                    <a href="{{ route('transaction.index') }}" class="list-group-item list-group-item-action">
                         Transactions
                     </a>
                     <a href="{{ route('user.index') }}"
@@ -78,23 +78,32 @@
                                         data-toggle="dropdown">
                                         <img src="/images/profile.jpg" alt=""
                                             class="rounded-circle mr-2 profile-pict" />
-                                        Hi, Randy
+                                        {{ Auth::user()->name }}
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a href="/" class="dropdown-item">Logout</a>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();"
+                                            class="dropdown-item">Logout</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
                                     </div>
                                 </li>
+                                {{-- <div class="dropdown-menu">
+                                    <a href="/" class="dropdown-item">Logout</a>
+                                </div> --}}
                             </ul>
 
                             <!-- Mobile UI -->
                             <ul class="navbar-nav d-block d-lg-none">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link"> Hi, Randy </a>
+                                    <a href="{{ route('dashboard') }}" class="nav-link"> Hi, {{ Auth::user()->name }}
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="cart.html" class="nav-link d-inline-block">
-                                        Cart
-                                    </a>
+                                    <a href="{{ route('cart') }}" class="nav-link d-inline-block"> Cart </a>
                                 </li>
                             </ul>
                         </div>

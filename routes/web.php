@@ -4,6 +4,7 @@ use \App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\TransactionController;
 use \App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -75,15 +76,16 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('dashboard-transaction-detail');
     Route::post('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardController::class, 'transactionUpdate'])
         ->name('dashboard-transaction-update');
+    Route::prefix('admin')
+        ->group(function () {
+            Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin-dashboard');
+            Route::resource('category', CategoryController::class);
+            Route::resource('user', UserController::class);
+            Route::resource('product', ProductController::class);
+            Route::resource('gallery', GalleryController::class);
+            Route::resource('transaction', TransactionController::class);
+        });
 });
 
-Route::prefix('admin')
-    ->group(function () {
-        Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin-dashboard');
-        Route::resource('category', CategoryController::class);
-        Route::resource('user', UserController::class);
-        Route::resource('product', ProductController::class);
-        Route::resource('gallery', GalleryController::class);
-    });
 
 Auth::routes();
